@@ -1,20 +1,17 @@
 const express = require('express');
 const app = express();
-const db = require('./configure/db'); // Adjust the path based on your project structure
+const taskRoutes = require("./Tasks/routes");
 
-// Your routes and other setup here...
 
-// Check database connection
-db.connect()
-  .then(obj => {
-    console.log(`Connected to the database on ${obj.client.host}`);
-    obj.done(); // success, release the connection
-  })
-  .catch(error => {
-    console.error('Error connecting to the database:', error.message || error);
-  });
+app.use(express.json());
 
-// Start the Express app
+app.get("/",(req,res)=>{
+  res.send("hello");
+})
+
+
+app.use('/api/v1/tasks' , taskRoutes);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
