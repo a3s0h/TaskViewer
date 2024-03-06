@@ -12,7 +12,7 @@ const checkUserQuery = "SELECT * FROM users WHERE username = $1";
 const toggleTaskQuery = "UPDATE tasks SET completed = $1 WHERE id = $2 RETURNING *";
 const updateTaskQuery = "UPDATE tasks SET title = $1, description = $2 WHERE id = $3 RETURNING *";
 const removeTaskQuery = "DELETE FROM tasks WHERE id = $1 RETURNING *";
-
+const getUsersByName = "SELECT tasks.title, tasks.description, tasks.completed FROM tasks JOIN users ON tasks.user_id = users.id WHERE users.username = $1;"
 
 
 module.exports = {
@@ -23,5 +23,6 @@ module.exports = {
     checkUserQuery,
     toggleTaskQuery,
     updateTaskQuery,
-    removeTaskQuery
+    removeTaskQuery,
+    getUsersByName
 }

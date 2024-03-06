@@ -1,5 +1,5 @@
 const pool = require("../db");
-const {getAllTasks,getTaskDetailsById , addUserQuery , addTaskQuery,checkUserQuery,toggleTaskQuery,updateTaskQuery,removeTaskQuery}  = require("./queries")
+const {getAllTasks,getTaskDetailsById , addUserQuery , addTaskQuery,checkUserQuery,toggleTaskQuery,updateTaskQuery,removeTaskQuery,getUsersByName}  = require("./queries")
 
 const getTasks = (req,res)=>{
     pool.query(getAllTasks, (error, result) =>{
@@ -18,6 +18,23 @@ const getById = (req,res)=>{
         res.status(200).json(result.rows);
     })
 }
+
+const getUserByUsername = (req, res) => {
+    const { username } = req.params.username; // Assuming the username is in the URL parameters
+
+    pool.query(getUsersByName, [username], (error, result) => {
+        if (error) {
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        if (result.rows.length > 0) {
+            res.status(200).json({ message: "User found!" });
+        } else {
+            res.status(404).json({ message: "User not found!" });
+        }
+    });
+};
+
 
 const addTask = (req, res) => {
     const { username, title, description, completed } = req.body;
@@ -123,12 +140,31 @@ const removeTask = (req, res) => {
     });
 };
 
+const addUser =  (req, res) => {
+    const { username } = req.body;
+  
+      const result =  pool.query(addUserQuery, [username] , (error , result)=>{
+        if(error) {
+            console.log(error);
+            return res.status(500).json({ error: "User cant be added" });
+        }
+        
+        res.status(200).json({messgae : "User added!"});
+
+      });
+  
+    
+  };
+
+
 module.exports = {
     getTasks,
     getById,
     addTask,
     toggleTask,
     updateTask,
-    removeTask
+    removeTask,
+    addUser,
+    getUserByUsername
 
 }

@@ -2,11 +2,12 @@ import React, { useEffect } from 'react'
 import Header from "./Header"
 import Register from './Register'
 import {createBrowserRouter , RouterProvider} from "react-router-dom"
-import Browse from './Browse'
+// import Browse from './Browse'
 import { auth } from '../utils/firebase'
 import {  onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from '../utils/userSlice'
 import { useDispatch } from 'react-redux'
+import Dashboard from './Dashboard'
 
 const Body = () => {
 
@@ -19,8 +20,8 @@ const Body = () => {
       element : <Register/>
     },
     {
-      path : "/browse",
-      element : <Browse />
+      path : "/dashboard",
+      element : <Dashboard />
     }
   ])
 

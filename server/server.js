@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
 const taskRoutes = require("./Tasks/routes");
+const cors = require("cors")
 
+
+app.use(cors());
 
 app.use(express.json());
 
