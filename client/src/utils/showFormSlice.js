@@ -3,9 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const showFormSlice = createSlice({
   name: 'showForm',
-  initialState: false,
+  initialState: {
+    showForm : false,
+  },
   reducers: {
-    setShowForm: (state, action) => action.payload,
+    setShowForm: (state, action) => {
+      state.showForm = !state.showForm;
+    },
   },
 });
 

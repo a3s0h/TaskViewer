@@ -7,7 +7,7 @@ const appStore = configureStore(
     {
         reducer  :{
             user : userSlice,
-            task : taskSlice,
+            tasks : taskSlice,
             showForm : showFormSlice,
         }
     }

@@ -30,20 +30,19 @@ const Register = () => {
         setErrorMessage(msg);
         
         if (msg) return;
-    
+        
         try {
             if (!isSignIn) {
                 // Sign up logic
                 const userCredential = await createUserWithEmailAndPassword(auth, email.current.value, password.current.value);
                 const user = userCredential.user;
-    
+                
                 // Once signed in, update user profile
                 await updateProfile(user, {
                     displayName: name.current.value,
                 });
-    
-                dispatch(addUser(name.current.value));
-
+                // dispatch(addUser(name.current.value));
+                
                 // Profile updated!
                 addUserToServer(name.current.value);
                 console.log(user);
@@ -52,8 +51,9 @@ const Register = () => {
                 // Sign in logic
                 const userCredential = await signInWithEmailAndPassword(auth, email.current.value, password.current.value);
                 const user = userCredential.user;
-    
-                dispatch(addUser(user));
+                
+                // dispatch(addUser(name.current.value));
+                console.log("hello")
                 // Signed in
                 console.log(user);
                 navigate("/dashboard");
