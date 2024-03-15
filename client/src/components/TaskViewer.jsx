@@ -2,33 +2,25 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTask } from '../utils/taskSlice';
+import { setEditForm } from '../utils/showFormSlice';
+import EditForm from './EditForm';
+import { setTaskId } from '../utils/editTaskWithIdSlice';
 
 const TaskViewer = () => {
   // const [tasks, setTasks] = useState([]);
   
+  const dispatch = useDispatch();
+
+
   const tasks = useSelector(store => store.tasks?.allTasks);
   if(!tasks)return;
 
+  const editTask = (taskid) => {
+      dispatch(setEditForm());
+      dispatch(setTaskId(taskid));
+  }
 
-
-  const editTask = async (taskId) => {
-    try {
-      // Call your updateTask API with the task ID
-      const response = await axios.put(`http://localhost:3000/api/v1/tasks/${taskId}/update`, {
-        // Provide the updated task data here
-        // For example:
-        // title: "Updated Title",
-        // description: "Updated Description",
-      });
-
-      // Handle the updated task in the frontend
-      setTasks((prevTasks) =>
-        prevTasks.map((task) => (task.id === taskId ? response.data : task))
-      );
-    } catch (error) {
-      console.error('Error updating task:', error);
-    }
-  };
+  
 
   const deleteTask = async (taskId) => {
     try {
@@ -44,6 +36,7 @@ const TaskViewer = () => {
 
   return (
     <div className="text-center">
+     
       <div className="mx-auto w-full">
         <h2 className="text-3xl font-bold mb-5">Your Tasks</h2>
         <ul className="py-10 px-5 mx-auto w-2/4 border-2 border-black rounded-lg">

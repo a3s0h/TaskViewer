@@ -2,6 +2,7 @@ import {configureStore} from "@reduxjs/toolkit"
 import userSlice from "./userSlice";
 import taskSlice from "./taskSlice";
 import showFormSlice from "./showFormSlice";
+import editTaskWithIdSlice from "./editTaskWithIdSlice";
 
 const appStore = configureStore(
     {
@@ -9,6 +10,7 @@ const appStore = configureStore(
             user : userSlice,
             tasks : taskSlice,
             showForm : showFormSlice,
+            taskId : editTaskWithIdSlice, 
         }
     }
 )
